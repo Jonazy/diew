@@ -14,6 +14,7 @@ from decouple import config, Csv
 from pathlib import Path
 import dj_database_url
 import django_heroku
+from django.contrib import messages
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -42,6 +43,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'expenses',
     'authentication',
+    'preferences',
 ]
 
 MIDDLEWARE = [
@@ -153,3 +155,15 @@ django_heroku.settings(locals())
 
 prod_db  =  dj_database_url.config(conn_max_age=500)
 DATABASES['default'].update(prod_db)
+
+MESSAGE_TAGS = {
+    messages.ERROR: 'danger'
+}
+
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+
+EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_PORT = 587
+EMAIL_HOST_USER = config('EMAIL_HOST_USER')
+EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD')

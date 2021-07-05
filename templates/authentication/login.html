@@ -1,0 +1,50 @@
+{% extends 'partials/base_auth.html' %}
+{% load static %}
+
+{% block content %}
+<div class="row">
+    <div class="col-md-4 offset-4">
+        <form action="{% url 'login' %}" method="post">
+            {% csrf_token %}
+            <div class="form-group">
+
+            <div class="card" style="margin-top: 100px">
+            <div class="card-body">
+                <br>
+                <h6 style="margin-bottom: 15px"><center>Login</center></h6>
+                {% include "partials/_messages.html" %}
+
+                <label for="username" class="form-label">Username:</label><br>
+                <div class="input-group mb-3">
+                    <input type="text" class="form-control" placeholder="jone doe" id="usernameField"
+                           name="username" aria-label="Username" aria-describedby="basic-addon1" value="{{fieldValues.username}}">
+                </div>
+
+                <label for="password" class="form-label">Password:</label><br>
+                <div class="input-group mb-3">
+                  <input type="password" class="form-control" placeholder="********" id="passwordField"
+                         name="password" aria-label="password">
+                </div>
+
+                <div class="row">
+                    <div class="col-sm-6">
+
+                    </div>
+                    <div class="col-sm-6 showHidePasswordToggle">
+                        <small style="float: right">show</small>
+                    </div>
+                </div><br>
+                <div class="row">
+                    <div class="col-sm-4 offset-4">
+                        <input type="submit" value="LOG IN" class="btn btn-primary btn-block submit-button">
+                    </div>
+                </div>
+        </div>
+
+      </div>
+      </div>
+     </form>
+    </div>
+</div>
+<script src="{% static 'js/signup.js' %}"></script>
+{% endblock %}
