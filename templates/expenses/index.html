@@ -1,3 +1,52 @@
 {% extends 'base.html' %}
+{% load static %}
 
-<h1>Here is home</h1>
+{% block content %}
+    <div class="container mt-5">
+        <br><br>
+        <div class="row">
+            <div class="col-md-10">
+                  <nav aria-label="breadcrumb">
+                  <ol class="breadcrumb">
+                    <li class="breadcrumb-item"><a href="{% url 'index' %}">Expense</a></li>
+                    <li class="breadcrumb-item active" aria-current="page">My Expenses</li>
+                  </ol>
+                </nav>
+            </div>
+            <div class="col-md-2">
+                <a href="{% url 'add-expense' %}" class="btn btn-primary" value="Add Expense">Add Expense</a>
+            </div>
+        </div>
+        <br>
+        {% include 'partials/_messages.html' %}
+        {% if expenses.count %}
+        <table class="table table-hover">
+            <thead>
+                <tr>
+                  <th scope="col">Id</th>
+                  <th scope="col">Amount</th>
+                  <th scope="col">Description</th>
+                  <th scope="col">Category</th>
+                  <th scope="col">Date</th>
+                  <th scope="col">Action</th>
+                </tr>
+            </thead>
+              <tbody>
+              {% for expense in expenses %}
+                <tr>
+                  <td scope="row">{{expense.id}}</td>
+                  <td>{{expense.amount}}</td>
+                  <td>{{expense.description}}</td>
+                  <td>{{expense.category}}</td>
+                  <td>{{expense.date}}</td>
+                    <td>
+                        <a href="{% url 'edit' expense.id %}" class="btn btn-secondary btn-sm">Update</a>
+                        <a href="{% url 'delete' expense.id %}" class="btn btn-danger btn-sm">Delete</a>
+                    </td>
+                </tr>
+              {% endfor %}
+              </tbody>
+        </table>
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,0 +1,53 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="container mt-5">
+  <br><br>
+  <nav aria-label="breadcrumb">
+  <ol class="breadcrumb">
+    <li class="breadcrumb-item"><a href="{% url 'index' %}">Expense</a></li>
+    <li class="breadcrumb-item active" aria-current="page">Edit Expense</li>
+  </ol>
+</nav>
+  <div class="row">
+    <div class="col-md-4 offset-4">
+      {% include 'partials/_messages.html' %}
+      <form class="row g-3" action="{% url 'edit' expense.id %}" method="post">
+        {% csrf_token %}
+        <div class="col-md-12">
+          <label for="inputNumber" class="form-label">Amount</label>
+          <input name="amount" type="number" class="form-control" id="inputNumber" value="{{expense.amount}}">
+        </div>
+        <div class="col-12">
+          <label for="inputDescription" class="form-label">Description</label>
+<!--          <textarea name="description" class="form-control" id="inputDescription" value="{{expense.description}}" placeholder="Enter expense description"></textarea>-->
+          <input name="description" type="text" class="form-control" id="inputDescription" value="{{expense.description}}">
+        </div>
+        <div class="col-md-12">
+          <label for="inputCategory" class="form-label">Category</label>
+          <select name="category" id="inputCategory" class="form-select" >
+            <option selected value="{{expense.category}}"></option>
+            {% for category in categories %}
+              <option value="{{category.name}}">{{category.name}}</option>
+            {% endfor %}
+          </select>
+        </div>
+        <div class="col-md-12">
+          <label for="inputDate" class="form-label">Date</label>
+          <input name="date" type="date" class="form-control" id="inputDate" value="{{expense.date}}">
+        </div>
+        <div class="col-12">
+          <div class="d-grid gap-2">
+            <br>
+            <input type="submit" class="btn btn-primary" value="Update Expense">
+          </div>
+        </div>
+
+        </form>
+    </div>
+  </div>
+
+</div>
+
+<script src="{% static 'js/signup.js' %}"></script>
+{% endblock %}
